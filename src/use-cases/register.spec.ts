@@ -12,15 +12,15 @@ interface CreateUserRequest {
 }
 
 let usersRepository: InMemoryUsersRepository;
-let registerUseCase: RegisterUseCase;
-let mockUser: CreateUserRequest;
+let sut: RegisterUseCase;
+let testUser: CreateUserRequest;
 
 describe("Register Use Case", () => {
     beforeEach(() => {
         usersRepository = new InMemoryUsersRepository();
-        registerUseCase = new RegisterUseCase(usersRepository);
+        sut = new RegisterUseCase(usersRepository);
 
-        mockUser = {
+        testUser = {
             name: "Jhon Doe",
             email: "Jhondoe@example.com",
             password: "123456"
@@ -28,16 +28,16 @@ describe("Register Use Case", () => {
     });
 
     it("should be able to register", async () => {
-        const { user } = await registerUseCase.execute(mockUser);
+        const { user } = await sut.execute(testUser);
 
         expect(user.id).toEqual(expect.any(String));
     });
 
     it("should hash user password upon registration", async () => {
-        const { user } = await registerUseCase.execute(mockUser);
+        const { user } = await sut.execute(testUser);
 
         const isPasswordCorrectlyHashed = await compare(
-            mockUser.password,
+            testUser.password,
             user.password_hash
         );
 
@@ -45,10 +45,10 @@ describe("Register Use Case", () => {
     });
 
     it("should not be able to register with same email twice", async () => {
-        await registerUseCase.execute(mockUser);
+        await sut.execute(testUser);
 
-        await expect(() =>
-            registerUseCase.execute(mockUser)
-        ).rejects.toBeInstanceOf(UserAlreadyExistsError);
+        await expect(() => sut.execute(testUser)).rejects.toBeInstanceOf(
+            UserAlreadyExistsError
+        );
     });
 });
