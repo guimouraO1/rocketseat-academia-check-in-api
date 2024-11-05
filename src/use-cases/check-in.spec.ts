@@ -20,6 +20,7 @@ let checkInRequest: CheckInUserRequest;
 describe("Check-in use case", () => {
     beforeEach(() => {
         checkInsRepository = new InMemoryCheckInsRepository();
+        gymRepository = new InMemoryGymRepository();
         sut = new CheckInUseCase(checkInsRepository, gymRepository);
 
         gymRepository.items.push({
