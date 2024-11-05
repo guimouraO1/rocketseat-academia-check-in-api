@@ -31,7 +31,7 @@ export class CheckInUseCase {
         if (!gym) {
             throw new ResourceNotFoundError();
         }
-        console.log(userLatitude, userLogitude);
+
         const checkInOnSameDay =
             await this.checkInsRepository.findByUserIdOnDate(
                 userId,
