@@ -39,7 +39,7 @@ model CheckIn {
 
 model Gym {
     id          String    @id @default(uuid())
-    tittle      String
+    title      String
     description String?
     phone       String?
     latitude    Decimal

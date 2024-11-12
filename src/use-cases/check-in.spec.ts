@@ -26,7 +26,7 @@ describe("Check-in use case", () => {
 
         await gymRepository.create({
             id: "gym-01",
-            tittle: "",
+            title: "",
             description: "",
             latitude: -22.7568428,
             longitude: -47.0170228,
@@ -79,7 +79,7 @@ describe("Check-in use case", () => {
     it("should not be able to check in on distant gym", async () => {
         await gymRepository.create({
             id: "gym-02",
-            tittle: "",
+            title: "",
             description: "",
             latitude: -22.7506476,
             longitude: -47.0236254,

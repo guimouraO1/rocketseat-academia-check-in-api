@@ -4,7 +4,7 @@ import { InMemoryGymRepository } from "@/repositories/in-memory/in-memory-gym-re
 import { CreateGymUseCase } from "./create-gym";
 
 interface CreateGymRequest {
-    tittle: string;
+    title: string;
     description: string | null;
     phone: string | null;
     latitude: number;
@@ -21,7 +21,7 @@ describe("Gym use case", () => {
         sut = new CreateGymUseCase(gymRepository);
 
         testUser = {
-            tittle: "JavaScript Gym",
+            title: "JavaScript Gym",
             latitude: -22.7568428,
             longitude: -47.0170228,
             description: "",
