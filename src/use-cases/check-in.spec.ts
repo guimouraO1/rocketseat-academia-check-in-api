@@ -10,7 +10,7 @@ interface CheckInUserRequest {
     userId: string;
     gymId: string;
     userLatitude: number;
-    userLogitude: number;
+    userLongitude: number;
 }
 
 let checkInsRepository: InMemoryCheckInsRepository;
@@ -38,7 +38,7 @@ describe("Check-in use case", () => {
             userId: "user-01",
             gymId: "gym-01",
             userLatitude: -22.7568428,
-            userLogitude: -47.0170228
+            userLongitude: -47.0170228
         };
 
         vi.useFakeTimers();
@@ -91,7 +91,7 @@ describe("Check-in use case", () => {
             userId: "user-01",
             gymId: "gym-02",
             userLatitude: -22.7568428,
-            userLogitude: -47.0170228
+            userLongitude: -47.0170228
         };
 
         await expect(() => sut.execute(checkInRequest)).rejects.toBeInstanceOf(
