@@ -9,8 +9,13 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+    provider = "postgresql"
     url      = env("DATABASE_URL")
+}
+
+enum Role {
+    ADMIN
+    MEMBER
 }
 
 model User {
@@ -19,7 +24,8 @@ model User {
     email         String    @unique
     password_hash String
     created_at    DateTime  @default(now())
-    checkIns       CheckIn[]
+    checkIns      CheckIn[]
+    role          Role      @default(MEMBER)
 
     @@map("users")
 }
@@ -29,9 +35,9 @@ model CheckIn {
     created_at   DateTime  @default(now())
     validated_at DateTime?
 
-    user   User   @relation(fields: [user_id], references: [id])
+    user    User   @relation(fields: [user_id], references: [id])
     user_id String
-    gym    Gym    @relation(fields: [gym_id], references: [id])
+    gym     Gym    @relation(fields: [gym_id], references: [id])
     gym_id  String
 
     @@map("check_ins")
@@ -39,13 +45,13 @@ model CheckIn {
 
 model Gym {
     id          String    @id @default(uuid())
-    title      String
+    title       String
     description String?
     phone       String?
     latitude    Decimal
     longitude   Decimal
-    created_at   DateTime  @default(now())
-    checkIns     CheckIn[]
+    created_at  DateTime  @default(now())
+    checkIns    CheckIn[]
 
     @@map("gyms")
 }
